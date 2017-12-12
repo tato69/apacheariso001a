@@ -1,4 +1,4 @@
-class apacheariso001 {
+class apacheariso001a {
 
   if $::osfamily == 'RedHat' {
     $apachename     = 'httpd'
@@ -7,5 +7,15 @@ class apacheariso001 {
   } else {
     print "This is not a supported distro."
   }
-    package { $apachename: ensure => installed; }
+ 
+ package { $apachename:
+  ensure  => latest,
+  
+}
+service { $apachename:
+    ensure   => 'running',
+    enable  => true,
+    require   => Package['jenkins'],
+}
+
 }
